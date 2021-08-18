@@ -1,12 +1,10 @@
 package com.example.thenews
 
-
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import android.util.Log
 import android.view.*
 import android.webkit.WebView
@@ -33,7 +31,6 @@ import java.net.URL
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
 
-
     lateinit var setCategory: String
     var  setSize: Int = 20
     lateinit var   setQ: String
@@ -53,11 +50,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         binding.bottomNavigationbar.setOnNavigationItemSelectedListener (this)
 
-
-
         setCategory = "general"
         setQ = ""
-
 
         binding.btnSearch.setOnClickListener{
             newsEverything(binding.txtSearch.text.toString(), setSize)
@@ -76,7 +70,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         }
 
-
         binding.recycleView.layoutManager = LinearLayoutManager(this)
          newsModel.observe(this, {obj ->
              binding.recycleView.adapter = NewsAdapter(obj)
@@ -86,9 +79,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
         })
     }
-
-
-
 
     fun newsEverything( query: String, size: Int){
         dataChangeEndpoint = 1
@@ -101,7 +91,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 }catch (e: Exception){
                     failRquestMessage(e.message)
                 }
-
             }
 
             override fun onFailure(call: Call<NewsModel>, t: Throwable) {
@@ -109,7 +98,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
                 failRquestMessage(t.message)
             }
-
         })
     }
 
@@ -125,30 +113,22 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 }catch (e: Exception){
                     failRquestMessage(e.message)
                 }
-
             }
 
             override fun onFailure(call: Call<NewsModel>, t: Throwable) {
                 error.postValue(t.message)
-
                 failRquestMessage(t.message)
-
             }
-
         })
     }
-
 
     fun failRquestMessage(message: String?){
 
         val alertBuilder =  AlertDialog.Builder(this@MainActivity)
         alertBuilder.setTitle("error en respuesra")
         alertBuilder.setMessage(message.toString())
-
         alertBuilder.show()
     }
-
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         setSize = 20
@@ -180,9 +160,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 }
 
-
 class NewsAdapter(private val items: NewsModel?): RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
-
 
     class ViewHolder(item: View): RecyclerView.ViewHolder(item) {
         val title = item.findViewById<TextView>(R.id.txtTitle)
