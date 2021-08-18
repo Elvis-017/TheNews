@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemGeneral"
+        android:checked="true"
+        android:icon="@drawable/ic_action_general"
+        android:title="General" />
+
+    <item
+        android:id="@+id/itemEntertainment"
+        android:icon="@drawable/ic_action_entertainment"
+        android:title="Media" />
+
+    <item
+        android:id="@+id/itemHealth"
+        android:icon="@drawable/ic_action_health"
+        android:title="Health" />
+
+    <item
+        android:id="@+id/itemSports"
+        android:icon="@drawable/ic_action_sport"
+        android:title="Sports" />
+
+    <item
+        android:id="@+id/itemTechnology"
+        android:icon="@drawable/ic_action_technology"
+        android:title="Tech" />
+
+</menu>
