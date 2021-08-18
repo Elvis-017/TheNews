@@ -1,11 +1,8 @@
 package com.example.thenews
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+
 import android.view.*
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -29,10 +26,9 @@ import java.net.URL
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var setCategory: String
-    var  setSize: Int = 20
-
-     var   dataChangeEndpoint: Int? = 0
+    private var setCategory: String = "general"
+    private var  setSize: Int = 20
+    private var   dataChangeEndpoint: Int? = 0
 
     private lateinit var binding: ActivityMainBinding
 
@@ -42,21 +38,19 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.bottomNavigationbar.setOnNavigationItemSelectedListener (this)
 
-        setCategory = "general"
+        newsTopHeadlines(setCategory,setSize)
 
         binding.btnSearch.setOnClickListener{
             newsEverything(binding.txtSearch.text.toString(), setSize)
         }
 
-        newsTopHeadlines(setCategory,setSize)
-
         binding.btnPageSize.setOnClickListener{
-            setSize += 10
 
+            setSize += 10
             if(dataChangeEndpoint == 0) {
                 newsTopHeadlines(setCategory, setSize)
             }else{
@@ -78,8 +72,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         dataChangeEndpoint = 1
         INewsService.getClient().getNewsEverything(query, size ).enqueue(object: Callback<NewsModel>{
             override fun onResponse(call: Call<NewsModel>, response: Response<NewsModel>) {
-                val responseBody = response.body()
-                newsModel.postValue(responseBody)
+                    val responseBody = response.body()
+                    newsModel.postValue(responseBody)
             }
 
             override fun onFailure(call: Call<NewsModel>, t: Throwable) {
@@ -94,8 +88,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         dataChangeEndpoint = 0
         INewsService.getClient().getNewsTopHeadlines(category,  size ).enqueue( object: Callback<NewsModel> {
             override fun onResponse(call: Call<NewsModel>, response: Response<NewsModel>) {
-                val responseBody = response.body()
-                newsModel.postValue(responseBody)
+
+                    val responseBody = response.body()
+                    newsModel.postValue(responseBody)
             }
 
             override fun onFailure(call: Call<NewsModel>, t: Throwable) {
@@ -175,7 +170,6 @@ class NewsAdapter(private val items: NewsModel?): RecyclerView.Adapter<NewsAdapt
         holder.url.setOnClickListener {
             holder.webView.visibility = View.VISIBLE
             holder. webView.loadUrl(items?.url.toString())
-            holder.url.visibility = View.INVISIBLE
         }
 
     }
