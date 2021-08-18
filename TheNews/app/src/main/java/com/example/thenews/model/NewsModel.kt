@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 data class Item (
     @SerializedName("title")
     var title: String?,
@@ -20,7 +19,6 @@ data class Item (
     var image: String?
 )
 
-
 data class NewsModel(
 @SerializedName("status")
 val status: String? ,
@@ -29,8 +27,3 @@ val totalResults: String?,
 @SerializedName("articles")
 val articles: ArrayList<Item>?
 )
-
-
-
-
-
