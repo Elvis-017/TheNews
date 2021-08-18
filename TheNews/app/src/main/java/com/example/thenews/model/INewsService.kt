@@ -8,10 +8,10 @@ import retrofit2.http.Query
 
 interface INewsService {
 
-    @GET("top-headlines/?apikey=09318fd3d4364e0a896f1cc35e5c964b&country=us")
+    @GET("top-headlines/?apikey=0cc311d8f2b1473ea055a94edbb4b835&country=us")
     fun getNewsTopHeadlines(@Query("category") category: String, @Query("pageSize") pageSize : Int): Call<NewsModel>
 
-    @GET("everything/?apikey=09318fd3d4364e0a896f1cc35e5c964b")
+    @GET("everything/?apikey=0cc311d8f2b1473ea055a94edbb4b835")
     fun getNewsEverything(@Query("q") query: String, @Query("pageSize") pageSize : Int): Call<NewsModel>
 
     companion object{
