@@ -27,13 +27,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.URL
 
-
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
 
     lateinit var setCategory: String
     var  setSize: Int = 20
-    lateinit var   setQ: String
 
      var   dataChangeEndpoint: Int? = 0
 
@@ -44,14 +41,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      //  setContentView(R.layout.activity_main)
 
          binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.bottomNavigationbar.setOnNavigationItemSelectedListener (this)
 
         setCategory = "general"
-        setQ = ""
 
         binding.btnSearch.setOnClickListener{
             newsEverything(binding.txtSearch.text.toString(), setSize)
@@ -67,7 +62,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }else{
                 newsEverything(binding.txtSearch.text.toString(), setSize)
            }
-
         }
 
         binding.recycleView.layoutManager = LinearLayoutManager(this)
@@ -84,13 +78,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         dataChangeEndpoint = 1
         INewsService.getClient().getNewsEverything(query, size ).enqueue(object: Callback<NewsModel>{
             override fun onResponse(call: Call<NewsModel>, response: Response<NewsModel>) {
-                try{
-                    val responseBody = response.body()
-                    newsModel.postValue(responseBody)
-
-                }catch (e: Exception){
-                    failRquestMessage(e.message)
-                }
+                val responseBody = response.body()
+                newsModel.postValue(responseBody)
             }
 
             override fun onFailure(call: Call<NewsModel>, t: Throwable) {
@@ -105,14 +94,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         dataChangeEndpoint = 0
         INewsService.getClient().getNewsTopHeadlines(category,  size ).enqueue( object: Callback<NewsModel> {
             override fun onResponse(call: Call<NewsModel>, response: Response<NewsModel>) {
-
-                try{
-                    val responseBody = response.body()
-                    newsModel.postValue(responseBody)
-
-                }catch (e: Exception){
-                    failRquestMessage(e.message)
-                }
+                val responseBody = response.body()
+                newsModel.postValue(responseBody)
             }
 
             override fun onFailure(call: Call<NewsModel>, t: Throwable) {
@@ -123,7 +106,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     fun failRquestMessage(message: String?){
-
         val alertBuilder =  AlertDialog.Builder(this@MainActivity)
         alertBuilder.setTitle("error en respuesra")
         alertBuilder.setMessage(message.toString())
